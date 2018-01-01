@@ -24,11 +24,13 @@
     "url": "https://github.com/jlenoble/typed-method/issues"
   },
   "homepage": "https://github.com/jlenoble/typed-method#readme",
-  "dependencies": {},
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
   "devDependencies": {
     "autoreload-gulp": "*",
     "babel-plugin-add-module-exports": "*",
-    "babel-preset-es2015": "*",
     "chai": "*",
     "del": "*",
     "eslint-config-google": "*",
