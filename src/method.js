@@ -1,16 +1,12 @@
-import Caller from './caller';
 import Callees from './callees';
+import {processSpreadArgs} from './input';
 
 const _methods = new Set();
 
 export default class Method {
   constructor (name, implementation, callerType, ...calleeTypes) {
-    const caller = new Caller(callerType);
-    const callees = new Callees(calleeTypes);
-
-    const _type = caller.sig;
-    const _name = name + callees.sig;
-    const _method = _type + _name;
+    const {caller, callees, _type, _name, _method} = processSpreadArgs(
+      name, callerType, calleeTypes);
 
     // Don't overwrite silently implementations
     if (_methods.has(_method)) {

@@ -1,19 +1,12 @@
-import Caller from './caller';
 import Callee from './callee';
+import {processArgs} from './input';
 
 const _methods = new Set();
 
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {
-    const caller = new Caller(callerType);
-    const callee = new Callee(calleeType || callerType);
-
-    const _type = caller.sig;
-    const _name = name + callee.sig;
-
-    callee[_type] = caller;
-    caller[_name] = implementation;
-    const _method = _type + _name;
+    const {caller, callee, _type, _name, _method} = processArgs(
+      name, callerType, calleeType);
 
     // Don't overwrite silently implementations
     if (_methods.has(_method)) {
@@ -22,6 +15,9 @@ export default class Binary {
     }
 
     _methods.add(_method);
+
+    callee[_type] = caller;
+    caller[_name] = implementation;
 
     const method = function (obj) {
       const callee = new Callee(obj.constructor);
