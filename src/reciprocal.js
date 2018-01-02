@@ -13,7 +13,7 @@ export default class Reciprocal {
       reciprocalName,
       reciprocalImplementation,
       callerType,
-      calleeType
+      calleeType || callerType
     );
   }
 
