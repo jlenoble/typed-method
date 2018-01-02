@@ -9,7 +9,7 @@ export default class Callee {
       return callee;
     }
 
-    ++_signature;
+    --_signature;
 
     Object.defineProperty(this, 'sig', {
       value: _signature,
