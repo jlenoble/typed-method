@@ -1,21 +1,10 @@
 import Callees from './callees';
 import {processSpreadArgs} from './input';
 
-const _methods = new Set();
-
 export default class Method {
   constructor (name, implementation, callerType, ...calleeTypes) {
-    const {caller, callees, _type, _name, _method} = processSpreadArgs(
+    const {caller, callees, _type, _name} = processSpreadArgs(
       name, callerType, calleeTypes);
-
-    // Don't overwrite silently implementations
-    if (_methods.has(_method)) {
-      throw new Error(`Method '${name}' already defined for caller type '${
-        callerType.name}' and callee types [${calleeTypes.map(
-        Type => `'${Type.name}'`).join(', ')}]`);
-    }
-
-    _methods.add(_method);
 
     callees[_type] = caller;
     caller[_name] = implementation;

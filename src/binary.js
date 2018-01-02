@@ -1,20 +1,10 @@
 import Callee from './callee';
 import {processArgs} from './input';
 
-const _methods = new Set();
-
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {
-    const {caller, callee, _type, _name, _method} = processArgs(
+    const {caller, callee, _type, _name} = processArgs(
       name, callerType, calleeType);
-
-    // Don't overwrite silently implementations
-    if (_methods.has(_method)) {
-      throw new Error(`Method '${name}' already defined for caller type '${
-        callerType.name}' and callee type '${calleeType.name}'`);
-    }
-
-    _methods.add(_method);
 
     callee[_type] = caller;
     caller[_name] = implementation;
