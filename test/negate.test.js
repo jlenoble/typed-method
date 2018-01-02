@@ -1,5 +1,6 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
+import {succeed, fail} from '../src/implementations';
 import Negate from '../src/negate';
 
 describe('Testing class Negate', function () {
@@ -43,25 +44,17 @@ describe('Testing class Negate', function () {
       return this.n > obj.n;
     }
 
-    function _true () {
-      return true;
-    }
-
-    function _false () {
-      return false;
-    }
-
     new Negate('greater', 'lowerOrEqual', _greater, Num, Num);
-    new Negate('greater', 'lowerOrEqual', _true, Num, One);
-    new Negate('greater', 'lowerOrEqual', _true, Num, Zero);
+    new Negate('greater', 'lowerOrEqual', succeed, Num, One);
+    new Negate('greater', 'lowerOrEqual', succeed, Num, Zero);
 
-    new Negate('greater', 'lowerOrEqual', _false, One, Num);
-    new Negate('greater', 'lowerOrEqual', _false, One, One);
-    new Negate('greater', 'lowerOrEqual', _true, One, Zero);
+    new Negate('greater', 'lowerOrEqual', fail, One, Num);
+    new Negate('greater', 'lowerOrEqual', fail, One, One);
+    new Negate('greater', 'lowerOrEqual', succeed, One, Zero);
 
-    new Negate('greater', 'lowerOrEqual', _false, Zero, Num);
-    new Negate('greater', 'lowerOrEqual', _false, Zero, One);
-    new Negate('greater', 'lowerOrEqual', _false, Zero, Zero);
+    new Negate('greater', 'lowerOrEqual', fail, Zero, Num);
+    new Negate('greater', 'lowerOrEqual', fail, Zero, One);
+    new Negate('greater', 'lowerOrEqual', fail, Zero, Zero);
 
     expect(a.greater(a)).to.be.false;
     expect(a.greater(b)).to.be.true;
@@ -142,12 +135,8 @@ describe('Testing class Negate', function () {
       return obj.n.every(n => this.n.indexOf(n) !== -1);
     }
 
-    function _false () {
-      return false;
-    }
-
     new Negate('includes', 'includesNot', _equals, Num, Num);
-    new Negate('includes', 'includesNot', _false, Num, Nums);
+    new Negate('includes', 'includesNot', fail, Num, Nums);
 
     new Negate('includes', 'includesNot', _includesAll, Nums, Nums);
     new Negate('includes', 'includesNot', _includes, Nums, Num);
