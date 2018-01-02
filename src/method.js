@@ -2,6 +2,8 @@ import sig from 'sig';
 import Caller from './caller';
 import Callees from './callees';
 
+const _methods = new Set();
+
 export default class Method {
   constructor (name, implementation, callerType, ...calleeTypes) {
     const caller = new Caller(callerType);
@@ -9,6 +11,16 @@ export default class Method {
 
     const _type = caller.sig;
     const _name = sig(name + callees.sig);
+    const _method = _type + _name;
+
+    // Don't overwrite silently implementations
+    if (_methods.has(_method)) {
+      throw new Error(`Method '${name}' already defined for caller type '${
+        callerType.name}' and callee types [${calleeTypes.map(
+        Type => `'${Type.name}'`).join(', ')}]`);
+    }
+
+    _methods.add(_method);
 
     callees[_type] = caller;
     caller[_name] = implementation;

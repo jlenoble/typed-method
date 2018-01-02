@@ -1,6 +1,8 @@
 import Caller from './caller';
 import Callee from './callee';
 
+const _methods = new Set();
+
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {
     const caller = new Caller(callerType);
@@ -11,6 +13,15 @@ export default class Binary {
 
     callee[_type] = caller;
     caller[_name] = implementation;
+    const _method = _type + _name;
+
+    // Don't overwrite silently implementations
+    if (_methods.has(_method)) {
+      throw new Error(`Method '${name}' already defined for caller type '${
+        callerType.name}' and callee type '${calleeType.name}'`);
+    }
+
+    _methods.add(_method);
 
     const method = function (obj) {
       const callee = new Callee(obj.constructor);
