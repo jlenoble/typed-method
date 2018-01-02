@@ -1,9 +1,11 @@
 import sig from 'sig';
-import Caller from './caller';
+import Callee from './callee';
 
 const _callees = new Map();
 
-const getSig = Types => sig(Types.map(Type => new Caller(Type).sig).join(','));
+export const getSig = Types => sig(
+  Types.map(Type => new Callee(Type).sig).join(',')
+);
 
 export default class Callees {
   constructor (Types) {
