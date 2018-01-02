@@ -15,6 +15,11 @@ export default class Reciprocal {
     }
 
     new Binary(name, implementation, callerType, calleeType);
-    new Binary(reciprocalName, reciprocal, callerType, calleeType);
+
+    this._makeReciprocal(reciprocalName, reciprocal, callerType, calleeType);
+  }
+
+  _makeReciprocal (name, reciprocal, callerType, calleeType) {
+    new Binary(name, reciprocal, calleeType, callerType);
   }
 }

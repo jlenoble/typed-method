@@ -1,21 +1,12 @@
 import Binary from './binary';
+import Reciprocal from './reciprocal';
 
-const _methods = new Map();
-
-export default class Symmetric {
+export default class Symmetric extends Reciprocal {
   constructor (name, implementation, callerType, calleeType) {
-    let symmetric = _methods.get(name);
+    super(name, name, implementation, callerType, calleeType);
+  }
 
-    if (!symmetric) {
-      function sym (obj) {
-        return obj[name](this); // eslint-disable-line no-invalid-this
-      }
-      _methods.set(name, sym);
-      symmetric = sym;
-    }
-
-    new Binary(name, implementation, callerType, calleeType);
-
+  _makeReciprocal (name, symmetric, callerType, calleeType) {
     if (callerType !== calleeType) {
       new Binary(name, symmetric, calleeType, callerType);
     }
