@@ -6,7 +6,7 @@ const _methods = new Set();
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {
     const caller = new Caller(callerType);
-    const callee = new Callee(calleeType);
+    const callee = new Callee(calleeType || callerType);
 
     const _type = caller.sig;
     const _name = name + callee.sig;

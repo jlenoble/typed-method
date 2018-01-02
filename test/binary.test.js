@@ -14,7 +14,7 @@ describe('Testing class Binary', function () {
       return new Num(this.n + obj.n);
     }
 
-    new Binary('add', impl, Num, Num);
+    new Binary('add', impl, Num);
 
     const a = new Num(17);
     const b = new Num(4);
@@ -65,36 +65,73 @@ describe('Testing class Binary', function () {
       return new Num(this.n * obj.n);
     }
 
-    new Binary('multiply', impl, Num, Num);
-    new Binary('multiply', function (obj) {
+    function leftIdentity (obj) {
       return obj;
-    }, Num, Zero);
-    new Binary('multiply', function () {
+    }
+
+    function rightIdentity () {
       return this;
-    }, Zero, Num);
-    new Binary('multiply', function () {
-      return this;
-    }, Num, One);
-    new Binary('multiply', function (obj) {
-      return obj;
-    }, One, Num);
+    }
+
+    new Binary('multiply', impl, Num);
+    new Binary('multiply', leftIdentity, Zero);
+    new Binary('multiply', rightIdentity, One);
+
+    new Binary('multiply', leftIdentity, Num, Zero);
+    new Binary('multiply', rightIdentity, Zero, Num);
+
+    new Binary('multiply', rightIdentity, Num, One);
+    new Binary('multiply', leftIdentity, One, Num);
+
+    new Binary('multiply', leftIdentity, One, Zero);
+    new Binary('multiply', rightIdentity, Zero, One);
+
+    expect(a.multiply(a).n).to.equal(4);
+    expect(a.multiply(a)).to.be.instanceof(Num);
 
     expect(a.multiply(b).n).to.equal(6);
     expect(a.multiply(b)).to.be.instanceof(Num);
 
-    // expect(a.multiply(o).n).to.equal(2);
-    // expect(a.multiply(o)).to.be.instanceof(Num);
-    //
-    // expect(a.multiply(z).n).to.equal(0);
-    // expect(a.multiply(z)).to.be.instanceof(Zero);
-    //
-    // expect(b.multiply(a).n).to.equal(6);
-    // expect(b.multiply(a)).to.be.instanceof(Num);
-    //
-    // expect(o.multiply(a).n).to.equal(2);
-    // expect(o.multiply(a)).to.be.instanceof(Num);
-    //
-    // expect(z.multiply(a).n).to.equal(0);
-    // expect(z.multiply(a)).to.be.instanceof(Zero);
+    expect(a.multiply(o).n).to.equal(2);
+    expect(a.multiply(o)).to.be.instanceof(Num);
+
+    expect(a.multiply(z).n).to.equal(0);
+    expect(a.multiply(z)).to.be.instanceof(Zero);
+
+    expect(b.multiply(a).n).to.equal(6);
+    expect(b.multiply(a)).to.be.instanceof(Num);
+
+    expect(b.multiply(b).n).to.equal(9);
+    expect(b.multiply(b)).to.be.instanceof(Num);
+
+    expect(b.multiply(o).n).to.equal(3);
+    expect(b.multiply(o)).to.be.instanceof(Num);
+
+    expect(b.multiply(z).n).to.equal(0);
+    expect(b.multiply(z)).to.be.instanceof(Zero);
+
+    expect(o.multiply(a).n).to.equal(2);
+    expect(o.multiply(a)).to.be.instanceof(Num);
+
+    expect(o.multiply(b).n).to.equal(3);
+    expect(o.multiply(b)).to.be.instanceof(Num);
+
+    expect(o.multiply(o).n).to.equal(1);
+    expect(o.multiply(o)).to.be.instanceof(One);
+
+    expect(o.multiply(z).n).to.equal(0);
+    expect(o.multiply(z)).to.be.instanceof(Zero);
+
+    expect(z.multiply(a).n).to.equal(0);
+    expect(z.multiply(a)).to.be.instanceof(Zero);
+
+    expect(z.multiply(b).n).to.equal(0);
+    expect(z.multiply(b)).to.be.instanceof(Zero);
+
+    expect(z.multiply(o).n).to.equal(0);
+    expect(z.multiply(o)).to.be.instanceof(Zero);
+
+    expect(z.multiply(z).n).to.equal(0);
+    expect(z.multiply(z)).to.be.instanceof(Zero);
   });
 });
