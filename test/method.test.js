@@ -25,76 +25,46 @@ describe('Testing class Method', function () {
     expect(a.add(b).n).to.equal(21);
   });
 
-  it('Smart multiply method', function () {
+  it('Multiple addition method', function () {
     class Num {
       constructor (n) {
-        if (n === 0) {
-          return new Zero();
-        }
-
-        if (n === 1) {
-          return new One();
-        }
-
         this.n = n;
-      }
-    }
-
-    class Zero {
-      constructor () {
-        this.n = 0;
-      }
-    }
-    class One {
-      constructor () {
-        this.n = 1;
       }
     }
 
     const a = new Num(2);
     const b = new Num(3);
-    const o = new Num(1);
-    const z = new Num(0);
 
-    expect(a).to.be.instanceof(Num);
-    expect(b).to.be.instanceof(Num);
-    expect(o).to.be.instanceof(One);
-    expect(z).to.be.instanceof(Zero);
+    new Method('add', function (obj) {
+      return new Num(this.n + obj.n);
+    }, Num, Num);
 
-    function impl (obj) {
-      return new Num(this.n * obj.n);
-    }
+    expect(a.add(b).n).to.equal(5);
+    expect(a.add(a).n).to.equal(4);
 
-    new Method('multiply', impl, Num, Num);
-    new Method('multiply', function (obj) {
-      return obj;
-    }, Num, Zero);
-    new Method('multiply', function () {
-      return this;
-    }, Zero, Num);
-    new Method('multiply', function () {
-      return this;
-    }, Num, One);
-    new Method('multiply', function (obj) {
-      return obj;
-    }, One, Num);
+    expect(() => a.add(a, b)).to.throw();
 
-    expect(a.multiply(b).n).to.equal(6);
-    expect(a.multiply(b)).to.be.instanceof(Num);
+    expect(() => new Method('add', function (obj) {
+      return new Num(this.n + obj.n);
+    }, Num, Num)).to.throw(`Method 'add' already defined`);
 
-    expect(a.multiply(o).n).to.equal(2);
-    expect(a.multiply(o)).to.be.instanceof(Num);
+    expect(() => new Method('add', function (obj1, obj2) {
+      return new Num(this.n + obj1.n + obj2.n);
+    }, Num, Num, Num)).not.to.throw();
 
-    expect(a.multiply(z).n).to.equal(0);
-    expect(a.multiply(z)).to.be.instanceof(Zero);
+    expect(a.add(a, a).n).to.equal(6);
+    expect(a.add(a).n).to.equal(4);
 
-    expect(b.multiply(a).n).to.equal(6);
-    expect(b.multiply(a)).to.be.instanceof(Num);
+    expect(() => a.add(b, a, a)).to.throw();
 
-    expect(o.multiply(a).n).to.equal(2);
-    expect(o.multiply(a)).to.be.instanceof(Num);
+    expect(() => new Method('add', function (obj1, obj2, obj3) {
+      return new Num(this.n + obj1.n + obj2.n + obj3.n);
+    }, Num, Num, Num, Num)).not.to.throw();
 
-    expect(z.multiply(a).n).to.equal(0);
-    expect(z.multiply(a)).to.be.instanceof(Zero);
+    expect(a.add(b, a, a).n).to.equal(9);
+    expect(a.add(a, a).n).to.equal(6);
+    expect(a.add(a).n).to.equal(4);
+
+    expect(() => a.add(b, b, b, a)).throw();
   });
 });
