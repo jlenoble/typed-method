@@ -1,6 +1,6 @@
 import Binary from './binary';
 import Symmetric from './symmetric';
-import {fail} from './implementations';
+import {fail} from '../implementations';
 
 export default class Equal {
   constructor (name, implementation, callerType, calleeType) {

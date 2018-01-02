@@ -1,5 +1,5 @@
-import Callees from './callees';
-import {processSpreadArgs} from './input';
+import Callees from '../callees';
+import {processSpreadArgs} from '../input';
 
 export default class Method {
   constructor (name, implementation, callerType, ...calleeTypes) {

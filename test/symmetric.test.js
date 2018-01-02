@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
-import Symmetric from '../src/symmetric';
+import Symmetric from '../src/methods/symmetric';
 
 describe('Testing class Symmetric', function () {
   it('Simple add method', function () {

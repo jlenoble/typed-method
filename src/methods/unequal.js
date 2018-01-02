@@ -1,6 +1,6 @@
 import Binary from './binary';
 import Symmetric from './symmetric';
-import {succeed} from './implementations';
+import {succeed} from '../implementations';
 
 export default class Unequal {
   constructor (name, implementation, callerType, calleeType) {

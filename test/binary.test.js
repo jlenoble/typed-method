@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
-import Binary from '../src/binary';
+import Binary from '../src/methods/binary';
 
 describe('Testing class Binary', function () {
   it('Simple add method', function () {

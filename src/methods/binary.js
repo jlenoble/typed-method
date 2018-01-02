@@ -1,5 +1,5 @@
-import Callee from './callee';
-import {processArgs} from './input';
+import Callee from '../callee';
+import {processArgs} from '../input';
 
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {

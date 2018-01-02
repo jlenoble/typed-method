@@ -1,7 +1,7 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
 import {succeed, fail} from '../src/implementations';
-import Negate from '../src/negate';
+import Negate from '../src/methods/negate';
 
 describe('Testing class Negate', function () {
   it('Smart greater and lowerOrEqual methods', function () {

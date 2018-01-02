@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
-import Equal from '../src/equal';
+import Equal from '../src/methods/equal';
 
 describe('Testing class Equal', function () {
   it('Simple equal method', function () {
