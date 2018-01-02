@@ -1,6 +1,24 @@
 const _methods = new Map();
 
-export function getReciprocalImplementation (name, implementation) {
+// ***************************************************************
+// Reciprocal
+// ***************************************************************
+export function reciprocal (name) {
+  const _method = name + ':reciprocal';
+  let reciprocalImplementation = _methods.get(_method);
+
+  if (!reciprocalImplementation) {
+    reciprocalImplementation = function (obj) {
+      return obj[name](this); // eslint-disable-line no-invalid-this
+    };
+
+    _methods.set(_method, reciprocalImplementation);
+  }
+
+  return reciprocalImplementation;
+}
+
+export function optimizedReciprocal (name, implementation) {
   let reciprocalImplementation;
 
   switch (implementation) {
@@ -9,20 +27,35 @@ export function getReciprocalImplementation (name, implementation) {
     break;
 
   default:
-    const _method = name + ':reciprocal';
-    reciprocalImplementation = _methods.get(_method);
-
-    if (!reciprocalImplementation) {
-      reciprocalImplementation = reciprocal(name);
-
-      _methods.set(_method, reciprocalImplementation);
-    }
+    reciprocalImplementation = reciprocal(name);
   }
 
   return reciprocalImplementation;
 }
 
-export function getNegateImplementation (name, implementation, nCallees) {
+// ***************************************************************
+// Negate
+// ***************************************************************
+export function negate (name, nCallees) {
+  const _method = name + `:negate(${nCallees})`;
+  let negateImplementation = _methods.get(_method);
+
+  if (!negateImplementation) {
+    negateImplementation = nCallees === 1
+      ? function (obj) {
+        return !this[name](obj); // eslint-disable-line no-invalid-this
+      }
+      : function (...args) {
+        return !this[name](...args); // eslint-disable-line no-invalid-this
+      };
+
+    _methods.set(_method, negateImplementation);
+  }
+
+  return negateImplementation;
+}
+
+export function optimizedNegate (name, implementation, nCallees) {
   let negateImplementation;
 
   switch (implementation) {
@@ -35,35 +68,15 @@ export function getNegateImplementation (name, implementation, nCallees) {
     break;
 
   default:
-    const _method = name + `:negate(${nCallees})`;
-    negateImplementation = _methods.get(_method);
-
-    if (!negateImplementation) {
-      negateImplementation = negate(name, nCallees);
-
-      _methods.set(_method, negateImplementation);
-    }
+    negateImplementation = negate(name, nCallees);
   }
 
   return negateImplementation;
 }
 
-export function reciprocal (name) {
-  return function (obj) {
-    return obj[name](this); // eslint-disable-line no-invalid-this
-  };
-}
-
-export function negate (name, nCallees) {
-  return nCallees === 1
-    ? function (obj) {
-      return !this[name](obj); // eslint-disable-line no-invalid-this
-    }
-    : function (...args) {
-      return !this[name](...args); // eslint-disable-line no-invalid-this
-    };
-}
-
+// ***************************************************************
+// Special implementations to shunt computations
+// ***************************************************************
 export function succeed () {
   return true;
 };

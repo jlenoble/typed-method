@@ -1,9 +1,9 @@
 import Binary from './binary';
-import {getReciprocalImplementation} from './implementations';
+import {optimizedReciprocal} from './implementations';
 
 export default class Reciprocal {
   constructor (name, reciprocalName, implementation, callerType, calleeType) {
-    const reciprocalImplementation = getReciprocalImplementation(
+    const reciprocalImplementation = optimizedReciprocal(
       name, implementation
     );
 

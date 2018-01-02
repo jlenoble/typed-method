@@ -1,10 +1,10 @@
 import Method from './method';
 import Binary from './binary';
-import {getNegateImplementation} from './implementations';
+import {optimizedNegate} from './implementations';
 
 export default class Negate {
   constructor (name, negateName, implementation, callerType, ...calleeTypes) {
-    const negateImplementation = getNegateImplementation(
+    const negateImplementation = optimizedNegate(
       name,
       implementation,
       calleeTypes.length
