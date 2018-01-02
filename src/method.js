@@ -1,4 +1,3 @@
-import sig from 'sig';
 import Caller from './caller';
 import Callees from './callees';
 
@@ -10,7 +9,7 @@ export default class Method {
     const callees = new Callees(calleeTypes);
 
     const _type = caller.sig;
-    const _name = sig(name + callees.sig);
+    const _name = name + callees.sig;
     const _method = _type + _name;
 
     // Don't overwrite silently implementations
@@ -27,7 +26,7 @@ export default class Method {
 
     const method = function (...args) {
       const callees = Callees.get(args);
-      const _name = sig(name + callees.sig);
+      const _name = name + callees.sig;
       // eslint-disable-next-line no-invalid-this
       return callees[_type][_name].apply(this, args);
     };
