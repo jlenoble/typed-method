@@ -19,18 +19,13 @@ export function reciprocal (name) {
 }
 
 export function optimizedReciprocal (name, implementation) {
-  let reciprocalImplementation;
-
   switch (implementation) {
   case succeed: case fail:
-    reciprocalImplementation = implementation;
-    break;
+    return implementation;
 
   default:
-    reciprocalImplementation = reciprocal(name);
+    return reciprocal(name);
   }
-
-  return reciprocalImplementation;
 }
 
 // ***************************************************************
@@ -56,22 +51,16 @@ export function negate (name, nCallees) {
 }
 
 export function optimizedNegate (name, implementation, nCallees) {
-  let negateImplementation;
-
   switch (implementation) {
   case succeed:
-    negateImplementation = fail;
-    break;
+    return fail;
 
   case fail:
-    negateImplementation = succeed;
-    break;
+    return succeed;
 
   default:
-    negateImplementation = negate(name, nCallees);
+    return negate(name, nCallees);
   }
-
-  return negateImplementation;
 }
 
 // ***************************************************************
