@@ -1,32 +1,6 @@
+import {succeed, fail} from './implementations/functions';
+
 const _methods = new Map();
-
-// ***************************************************************
-// Reciprocal
-// ***************************************************************
-export function reciprocal (name) {
-  const _method = name + ':reciprocal';
-  let reciprocalImplementation = _methods.get(_method);
-
-  if (!reciprocalImplementation) {
-    reciprocalImplementation = function (obj) {
-      return obj[name](this); // eslint-disable-line no-invalid-this
-    };
-
-    _methods.set(_method, reciprocalImplementation);
-  }
-
-  return reciprocalImplementation;
-}
-
-export function optimizedReciprocal (name, implementation) {
-  switch (implementation) {
-  case succeed: case fail:
-    return implementation;
-
-  default:
-    return reciprocal(name);
-  }
-}
 
 // ***************************************************************
 // Negate
@@ -63,13 +37,4 @@ export function optimizedNegate (name, implementation, nCallees) {
   }
 }
 
-// ***************************************************************
-// Special implementations to shunt computations
-// ***************************************************************
-export function succeed () {
-  return true;
-};
-
-export function fail () {
-  return false;
-};
+export {succeed, fail};
