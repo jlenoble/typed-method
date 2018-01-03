@@ -7,7 +7,8 @@ export default class Reciprocal {
 
     this._makeReciprocal(
       reciprocalName,
-      new ReciprocalImplementation(name, implementation).optimized,
+      new ReciprocalImplementation(name, implementation, callerType,
+        calleeType).optimized,
       callerType,
       calleeType || callerType
     );

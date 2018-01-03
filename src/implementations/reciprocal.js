@@ -1,5 +1,6 @@
 import Implementation from './implementation';
 import {succeed, fail} from './functions';
+import {getArgs} from '../input';
 
 export function optimize (implementation) {
   switch (implementation) {
@@ -12,8 +13,10 @@ export function optimize (implementation) {
 }
 
 export default class ReciprocalImplementation extends Implementation {
-  constructor (name, implementation) {
-    super(name + ':reciprocal', function (obj) {
+  constructor (name, implementation, callerType, calleeType) {
+    const args = getArgs(name, callerType, calleeType);
+
+    super('reciprocal:' + args._method, function (obj) {
       return obj[name](this); // eslint-disable-line no-invalid-this
     });
 
