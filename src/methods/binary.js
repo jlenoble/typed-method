@@ -17,7 +17,7 @@ export default class Binary {
       return callee[_type][_name].call(this, obj);
     };
 
-    setImplementation(_method, method);
+    setImplementation(_method, implementation);
 
     // eslint-disable-next-line no-param-reassign
     callerType.prototype[name] = method;

@@ -17,7 +17,7 @@ export default class Method {
       return callees[_type][_name].apply(this, args);
     };
 
-    setImplementation(_method, method);
+    setImplementation(_method, implementation);
 
     // eslint-disable-next-line no-param-reassign
     callerType.prototype[name] = method;

@@ -5,11 +5,11 @@ export function hasImplementation (key) {
 }
 
 export function setImplementation (key, implementation) {
-  _implementations.set(key, implementation);
+  new Implementation(key, implementation);
 }
 
 export default class Implementation {
-  construction (key, implementation) {
+  constructor (key, implementation) {
     const impl = _implementations.get(key);
 
     if (impl) {
@@ -29,10 +29,5 @@ export default class Implementation {
     });
 
     _implementations.set(key, this);
-
-    Object.defineProperty(this, 'optimized', {
-      value: this._optimize(),
-      enumerable: true,
-    });
   }
-}
+};
