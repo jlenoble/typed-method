@@ -1,9 +1,9 @@
 import Callees from '../callees';
-import {processSpreadArgs} from '../input';
+import {processInitSpreadArgs} from '../process-init';
 
 export default class Method {
   constructor (name, implementation, callerType, ...calleeTypes) {
-    const {caller, callees, _type, _name} = processSpreadArgs(
+    const {caller, callees, _type, _name} = processInitSpreadArgs(
       name, callerType, calleeTypes);
 
     callees[_type] = caller;

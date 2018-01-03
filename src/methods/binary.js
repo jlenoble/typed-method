@@ -1,9 +1,9 @@
 import Callee from '../callee';
-import {processArgs} from '../input';
+import {processInitArgs} from '../process-init';
 
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {
-    const {caller, callee, _type, _name} = processArgs(
+    const {caller, callee, _type, _name} = processInitArgs(
       name, callerType, calleeType);
 
     callee[_type] = caller;
