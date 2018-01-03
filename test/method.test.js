@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
-import Method from '../src/methods/method';
+import {Method} from '../src/methods';
 
 describe('Testing class Method', function () {
   it('Simple add method', function () {

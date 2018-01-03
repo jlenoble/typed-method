@@ -1,5 +1,5 @@
 import {getArgs, getSpreadArgs} from './input';
-import {hasImplementation} from './implementations/implementation';
+import {hasImplementation} from './implementations';
 
 export function processInitArgs (name, callerType, calleeType) {
   const args = getArgs(name, callerType, calleeType);

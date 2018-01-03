@@ -1,6 +1,6 @@
 import Callees from '../callees';
 import {processInitSpreadArgs} from '../process-init';
-import {setImplementation} from '../implementations/implementation';
+import {setImplementation} from '../implementations';
 
 export default class Method {
   constructor (name, implementation, callerType, ...calleeTypes) {

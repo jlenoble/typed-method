@@ -1,6 +1,6 @@
 import Callee from '../callee';
 import {processInitArgs} from '../process-init';
-import {setImplementation} from '../implementations/implementation';
+import {setImplementation} from '../implementations';
 
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {

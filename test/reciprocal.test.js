@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
-import Reciprocal from '../src/methods/reciprocal';
+import {Reciprocal} from '../src/methods';
 
 describe('Testing class Reciprocal', function () {
   it('Simple greater and lower methods', function () {

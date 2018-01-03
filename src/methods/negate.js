@@ -1,6 +1,6 @@
 import Method from './method';
 import Binary from './binary';
-import NegateImplementation from '../implementations/negate';
+import {NegateImplementation} from '../implementations';
 
 export default class Negate {
   constructor (name, negateName, implementation, callerType, ...calleeTypes) {

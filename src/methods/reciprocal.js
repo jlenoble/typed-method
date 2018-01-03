@@ -1,5 +1,5 @@
 import Binary from './binary';
-import ReciprocalImplementation from '../implementations/reciprocal';
+import {ReciprocalImplementation} from '../implementations';
 
 export default class Reciprocal {
   constructor (name, reciprocalName, implementation, callerType, calleeType) {
