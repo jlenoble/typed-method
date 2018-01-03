@@ -1,7 +1,7 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
 import {succeed, fail} from '../src/implementations';
-import {Negate} from '../src/methods';
+import {Binary, Negate} from '../src/methods';
 
 describe('Testing class Negate', function () {
   it('Smart greater and lowerOrEqual methods', function () {
@@ -44,17 +44,26 @@ describe('Testing class Negate', function () {
       return this.n > obj.n;
     }
 
-    new Negate('greater', 'lowerOrEqual', _greater, Num, Num);
-    new Negate('greater', 'lowerOrEqual', succeed, Num, One);
-    new Negate('greater', 'lowerOrEqual', succeed, Num, Zero);
+    new Binary('greater', _greater, Num, Num);
+    new Binary('greater', succeed, Num, One);
+    new Binary('greater', succeed, Num, Zero);
+    new Negate('lowerOrEqual', 'greater', Num, Num);
+    new Negate('lowerOrEqual', 'greater', Num, One);
+    new Negate('lowerOrEqual', 'greater', Num, Zero);
 
-    new Negate('greater', 'lowerOrEqual', fail, One, Num);
-    new Negate('greater', 'lowerOrEqual', fail, One, One);
-    new Negate('greater', 'lowerOrEqual', succeed, One, Zero);
+    new Binary('greater', fail, One, Num);
+    new Binary('greater', fail, One, One);
+    new Binary('greater', succeed, One, Zero);
+    new Negate('lowerOrEqual', 'greater', One, Num);
+    new Negate('lowerOrEqual', 'greater', One, One);
+    new Negate('lowerOrEqual', 'greater', One, Zero);
 
-    new Negate('greater', 'lowerOrEqual', fail, Zero, Num);
-    new Negate('greater', 'lowerOrEqual', fail, Zero, One);
-    new Negate('greater', 'lowerOrEqual', fail, Zero, Zero);
+    new Binary('greater', fail, Zero, Num);
+    new Binary('greater', fail, Zero, One);
+    new Binary('greater', fail, Zero, Zero);
+    new Negate('lowerOrEqual', 'greater', Zero, Num);
+    new Negate('lowerOrEqual', 'greater', Zero, One);
+    new Negate('lowerOrEqual', 'greater', Zero, Zero);
 
     expect(a.greater(a)).to.be.false;
     expect(a.greater(b)).to.be.true;
@@ -135,11 +144,15 @@ describe('Testing class Negate', function () {
       return obj.n.every(n => this.n.indexOf(n) !== -1);
     }
 
-    new Negate('includes', 'includesNot', _equals, Num, Num);
-    new Negate('includes', 'includesNot', fail, Num, Nums);
+    new Binary('includes', _equals, Num, Num);
+    new Binary('includes', fail, Num, Nums);
+    new Negate('includesNot', 'includes', Num, Num);
+    new Negate('includesNot', 'includes', Num, Nums);
 
-    new Negate('includes', 'includesNot', _includesAll, Nums, Nums);
-    new Negate('includes', 'includesNot', _includes, Nums, Num);
+    new Binary('includes', _includesAll, Nums, Nums);
+    new Binary('includes', _includes, Nums, Num);
+    new Negate('includesNot', 'includes', Nums, Nums);
+    new Negate('includesNot', 'includes', Nums, Num);
 
     expect(a.includes(a)).to.be.true;
     expect(a.includes(b)).to.be.false;
