@@ -1,6 +1,7 @@
 /* eslint-disable no-invalid-this */
 import {expect} from 'chai';
-import {Reciprocal} from '../src/methods';
+import {succeed, fail} from '../src/implementations';
+import {Binary, Reciprocal} from '../src/methods';
 
 describe('Testing class Reciprocal', function () {
   it('Simple greater and lower methods', function () {
@@ -14,7 +15,8 @@ describe('Testing class Reciprocal', function () {
       return this.n > obj.n;
     }
 
-    new Reciprocal('greater', 'lower', impl, Num, Num);
+    new Binary('greater', impl, Num, Num);
+    new Reciprocal('lower', 'greater', Num, Num);
 
     const a = new Num(17);
     const b = new Num(4);
@@ -67,25 +69,26 @@ describe('Testing class Reciprocal', function () {
       return this.n > obj.n;
     }
 
-    function _true () {
-      return true;
-    }
+    new Binary('greater', _greater, Num, Num);
+    new Binary('greater', succeed, Num, One);
+    new Binary('greater', succeed, Num, Zero);
+    new Reciprocal('lower', 'greater', Num, Num);
+    new Reciprocal('lower', 'greater', Num, One);
+    new Reciprocal('lower', 'greater', Num, Zero);
 
-    function _false () {
-      return false;
-    }
+    new Binary('greater', fail, One, Num);
+    new Binary('greater', fail, One, One);
+    new Binary('greater', succeed, One, Zero);
+    new Reciprocal('lower', 'greater', One, Num);
+    new Reciprocal('lower', 'greater', One, One);
+    new Reciprocal('lower', 'greater', One, Zero);
 
-    new Reciprocal('greater', 'lower', _greater, Num, Num);
-    new Reciprocal('greater', 'lower', _true, Num, One);
-    new Reciprocal('greater', 'lower', _true, Num, Zero);
-
-    new Reciprocal('greater', 'lower', _false, One, Num);
-    new Reciprocal('greater', 'lower', _false, One, One);
-    new Reciprocal('greater', 'lower', _true, One, Zero);
-
-    new Reciprocal('greater', 'lower', _false, Zero, Num);
-    new Reciprocal('greater', 'lower', _false, Zero, One);
-    new Reciprocal('greater', 'lower', _false, Zero, Zero);
+    new Binary('greater', fail, Zero, Num);
+    new Binary('greater', fail, Zero, One);
+    new Binary('greater', fail, Zero, Zero);
+    new Reciprocal('lower', 'greater', Zero, Num);
+    new Reciprocal('lower', 'greater', Zero, One);
+    new Reciprocal('lower', 'greater', Zero, Zero);
 
     expect(a.greater(a)).to.be.false;
     expect(a.greater(b)).to.be.true;
@@ -166,15 +169,15 @@ describe('Testing class Reciprocal', function () {
       return obj.n.every(n => this.n.indexOf(n) !== -1);
     }
 
-    function _false () {
-      return false;
-    }
+    new Binary('includes', _equals, Num, Num);
+    new Binary('includes', fail, Num, Nums);
+    new Reciprocal('isIncluded', 'includes', Num, Num);
+    new Reciprocal('isIncluded', 'includes', Num, Nums);
 
-    new Reciprocal('includes', 'isIncluded', _equals, Num, Num);
-    new Reciprocal('includes', 'isIncluded', _false, Num, Nums);
-
-    new Reciprocal('includes', 'isIncluded', _includesAll, Nums, Nums);
-    new Reciprocal('includes', 'isIncluded', _includes, Nums, Num);
+    new Binary('includes', _includesAll, Nums, Nums);
+    new Binary('includes', _includes, Nums, Num);
+    new Reciprocal('isIncluded', 'includes', Nums, Nums);
+    new Reciprocal('isIncluded', 'includes', Nums, Num);
 
     expect(a.includes(a)).to.be.true;
     expect(a.includes(b)).to.be.false;

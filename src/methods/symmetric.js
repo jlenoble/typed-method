@@ -1,14 +1,18 @@
 import Binary from './binary';
-import Reciprocal from './reciprocal';
+import {ReciprocalImplementation} from '../implementations';
 
-export default class Symmetric extends Reciprocal {
+export default class Symmetric {
   constructor (name, implementation, callerType, calleeType) {
-    super(name, name, implementation, callerType, calleeType);
-  }
+    new Binary(name, implementation, callerType, calleeType);
 
-  _makeReciprocal (name, symmetric, callerType, calleeType) {
     if (callerType !== calleeType) {
-      new Binary(name, symmetric, calleeType, callerType);
+      new Binary(
+        name,
+        new ReciprocalImplementation(name, name, callerType,
+          calleeType).optimized,
+        calleeType || callerType,
+        callerType
+      );
     }
   }
 }

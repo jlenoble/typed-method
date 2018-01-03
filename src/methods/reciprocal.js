@@ -1,20 +1,16 @@
 import Binary from './binary';
-import {ReciprocalImplementation} from '../implementations';
+import {ReciprocalImplementation, getOptimized} from '../implementations';
 
 export default class Reciprocal {
-  constructor (name, reciprocalName, implementation, callerType, calleeType) {
-    new Binary(name, implementation, callerType, calleeType);
+  constructor (reciprocalName, originalName, callerType, calleeType) {
+    const implementation = getOptimized(originalName, callerType, [calleeType]);
 
-    this._makeReciprocal(
+    new Binary(
       reciprocalName,
-      new ReciprocalImplementation(name, implementation, callerType,
+      new ReciprocalImplementation(originalName, implementation, callerType,
         calleeType).optimized,
-      callerType,
-      calleeType || callerType
+      calleeType || callerType,
+      callerType
     );
-  }
-
-  _makeReciprocal (name, reciprocal, callerType, calleeType) {
-    new Binary(name, reciprocal, calleeType, callerType);
   }
 }
