@@ -1,9 +1,10 @@
 import Callee from '../callee';
 import {processInitArgs} from '../process-init';
+import {setImplementation} from '../implementations/implementation';
 
 export default class Binary {
   constructor (name, implementation, callerType, calleeType) {
-    const {caller, callee, _type, _name} = processInitArgs(
+    const {caller, callee, _type, _name, _method} = processInitArgs(
       name, callerType, calleeType);
 
     callee[_type] = caller;
@@ -15,6 +16,8 @@ export default class Binary {
       // eslint-disable-next-line no-invalid-this
       return callee[_type][_name].call(this, obj);
     };
+
+    setImplementation(_method, method);
 
     // eslint-disable-next-line no-param-reassign
     callerType.prototype[name] = method;
