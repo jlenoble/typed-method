@@ -31,15 +31,13 @@ export default class StricterImplementation extends Implementation {
         // eslint-disable-next-line no-invalid-this
         return conditionImplementation.call(this, obj)
           // eslint-disable-next-line no-invalid-this
-          ? implementation.call(this, obj)
-          : false;
+          && implementation.call(this, obj);
       }
       : function (...args) {
         // eslint-disable-next-line no-invalid-this
         return conditionImplementation.apply(this, args)
           // eslint-disable-next-line no-invalid-this
-          ? implementation.apply(this, args)
-          : false;
+          && implementation.apply(this, args);
       }
     );
 
