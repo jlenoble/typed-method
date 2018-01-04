@@ -5,12 +5,12 @@ export default class Symmetric {
   constructor (name, implementation, callerType, calleeType) {
     new Binary(name, implementation, callerType, calleeType);
 
-    if (callerType !== calleeType) {
+    if (callerType !== calleeType && calleeType !== undefined) {
       new Binary(
         name,
         new ReciprocalImplementation(name, name, callerType,
           calleeType).optimized,
-        calleeType || callerType,
+        calleeType,
         callerType
       );
     }
