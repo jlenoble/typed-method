@@ -1,4 +1,5 @@
 import Binary from './binary';
+import Commute from './commute';
 import Equal from './equal';
 import Looser from './looser';
 import Method from './method';
@@ -10,6 +11,7 @@ import Unequal from './unequal';
 
 export {
   Binary,
+  Commute,
   Equal,
   Looser,
   Method,
