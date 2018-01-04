@@ -1,5 +1,6 @@
 import Binary from './binary';
 import Equal from './equal';
+import Looser from './looser';
 import Method from './method';
 import Negate from './negate';
 import Reciprocal from './reciprocal';
@@ -10,6 +11,7 @@ import Unequal from './unequal';
 export {
   Binary,
   Equal,
+  Looser,
   Method,
   Negate,
   Reciprocal,
