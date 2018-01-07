@@ -55,13 +55,13 @@ export default function method (name, {
         new Negate(negate, name, callerType, callerType);
       }
 
-      if (strict && (condition || unequal)) {
-        new Stricter(strict, name, condition || unequal, callerType,
+      if (strict && condition) {
+        new Stricter(strict, name, condition, callerType,
           callerType);
       }
 
-      if (loose && (condition || equal)) {
-        new Looser(strict, name, condition || equal, callerType, callerType);
+      if (loose && condition) {
+        new Looser(strict, name, condition, callerType, callerType);
       }
     }
   };

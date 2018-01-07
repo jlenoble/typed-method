@@ -278,13 +278,62 @@ describe('Testing function method', function () {
     expect(new this.Arr(3).lowerOrEqual(new this.Num(3))).to.be.true;
   });
 
-  it('Option strict and equal', function () {
-  });
-
   it('Option strict and condition', function () {
-  });
+    const unequal = method('unequal', {commutative: true});
+    const greaterOrEqual = method('greaterOrEqual', {strict: 'greater',
+      condition: 'unequal'});
 
-  it('Option loose and unequal', function () {
+    unequal(function (obj) {
+      return this.n !== obj.n;
+    }, this.Num);
+
+    greaterOrEqual(function (obj) {
+      return this.n >= obj.n;
+    }, this.Num);
+
+    expect(new this.Num(6).unequal(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).unequal(new this.Num(3))).to.be.false;
+    expect(new this.Num(6).greaterOrEqual(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).greaterOrEqual(new this.Num(3))).to.be.true;
+    expect(new this.Num(6).greater(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).greater(new this.Num(3))).to.be.false;
+
+    unequal(function (obj) {
+      return this.n.some((a, i) => a !== obj.n[i]);
+    }, this.Arr);
+
+    greaterOrEqual(function (obj) {
+      return this.n.every((a, i) => a >= obj.n[i]);
+    }, this.Arr);
+
+    expect(new this.Arr(6).unequal(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).unequal(new this.Arr(3))).to.be.false;
+    expect(new this.Arr(6).greaterOrEqual(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).greaterOrEqual(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(6).greater(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).greater(new this.Arr(3))).to.be.false;
+
+    expect(() => new this.Num(3).unequal(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).unequal(new this.Num(3))).to.throw();
+    expect(() => new this.Num(3).greaterOrEqual(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).greaterOrEqual(new this.Num(3))).to.throw();
+    expect(() => new this.Num(3).greater(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).greater(new this.Num(3))).to.throw();
+
+    unequal(function (obj) {
+      return (this.n[0] || this.n) !== (obj.n[0] || obj.n);
+    }, this.Num, this.Arr);
+
+    greaterOrEqual(function (obj) {
+      return (this.n[0] || this.n) >= (obj.n[0] || obj.n);
+    }, this.Num, this.Arr);
+
+    expect(new this.Num(3).unequal(new this.Arr(3))).to.be.false;
+    expect(new this.Arr(3).unequal(new this.Num(3))).to.be.false;
+    expect(new this.Num(3).greaterOrEqual(new this.Arr(3))).to.be.true;
+    expect(() => new this.Arr(3).greaterOrEqual(new this.Num(3))).to.throw();
+    expect(new this.Num(3).greater(new this.Arr(3))).to.be.false;
+    expect(() => new this.Arr(3).greater(new this.Num(3))).to.throw();
   });
 
   it('Option loose and condition', function () {
