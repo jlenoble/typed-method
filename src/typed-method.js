@@ -47,7 +47,7 @@ export default function method (name, {
       }
 
       if (loose && (condition || equal)) {
-        new Looser(strict, name, condition || equal, callerType,
+        new Looser(loose, name, condition || equal, callerType,
           ...calleeTypes);
       }
     } else {
@@ -56,12 +56,11 @@ export default function method (name, {
       }
 
       if (strict && condition) {
-        new Stricter(strict, name, condition, callerType,
-          callerType);
+        new Stricter(strict, name, condition, callerType, callerType);
       }
 
       if (loose && condition) {
-        new Looser(strict, name, condition, callerType, callerType);
+        new Looser(loose, name, condition, callerType, callerType);
       }
     }
   };

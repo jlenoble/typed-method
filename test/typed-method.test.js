@@ -337,6 +337,61 @@ describe('Testing function method', function () {
   });
 
   it('Option loose and condition', function () {
+    const equal = method('equal', {commutative: true});
+    const greater = method('greater', {loose: 'greaterOrEqual',
+      condition: 'equal'});
+
+    equal(function (obj) {
+      return this.n === obj.n;
+    }, this.Num);
+
+    greater(function (obj) {
+      return this.n > obj.n;
+    }, this.Num);
+
+    expect(new this.Num(6).equal(new this.Num(3))).to.be.false;
+    expect(new this.Num(3).equal(new this.Num(3))).to.be.true;
+    expect(new this.Num(6).greater(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).greater(new this.Num(3))).to.be.false;
+    expect(new this.Num(6).greaterOrEqual(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).greaterOrEqual(new this.Num(3))).to.be.true;
+
+    equal(function (obj) {
+      return this.n.some((a, i) => a === obj.n[i]);
+    }, this.Arr);
+
+    greater(function (obj) {
+      return this.n.every((a, i) => a > obj.n[i]);
+    }, this.Arr);
+
+    expect(new this.Arr(6).equal(new this.Arr(3))).to.be.false;
+    expect(new this.Arr(3).equal(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(6).greater(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).greater(new this.Arr(3))).to.be.false;
+    expect(new this.Arr(6).greaterOrEqual(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).greaterOrEqual(new this.Arr(3))).to.be.true;
+
+    expect(() => new this.Num(3).equal(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).equal(new this.Num(3))).to.throw();
+    expect(() => new this.Num(3).greater(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).greater(new this.Num(3))).to.throw();
+    expect(() => new this.Num(3).greaterOrEqual(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).greaterOrEqual(new this.Num(3))).to.throw();
+
+    equal(function (obj) {
+      return (this.n[0] || this.n) === (obj.n[0] || obj.n);
+    }, this.Num, this.Arr);
+
+    greater(function (obj) {
+      return (this.n[0] || this.n) > (obj.n[0] || obj.n);
+    }, this.Num, this.Arr);
+
+    expect(new this.Num(3).equal(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).equal(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).greater(new this.Arr(3))).to.be.false;
+    expect(() => new this.Arr(3).greater(new this.Num(3))).to.throw();
+    expect(new this.Num(3).greaterOrEqual(new this.Arr(3))).to.be.true;
+    expect(() => new this.Arr(3).greaterOrEqual(new this.Num(3))).to.throw();
   });
 
   it('Option reciprocal, negate and strict/equal', function () {
