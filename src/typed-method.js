@@ -41,13 +41,13 @@ export default function method (name, {
         new Negate(negate, name, callerType, ...calleeTypes);
       }
 
-      if (strict && (condition || unequal)) {
-        new Stricter(strict, name, condition || unequal, callerType,
+      if (strict && condition) {
+        new Stricter(strict, name, condition, callerType,
           ...calleeTypes);
       }
 
-      if (loose && (condition || equal)) {
-        new Looser(loose, name, condition || equal, callerType,
+      if (loose && condition) {
+        new Looser(loose, name, condition, callerType,
           ...calleeTypes);
       }
     } else {
