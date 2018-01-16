@@ -1,7 +1,7 @@
 {
   "name": "typed-method",
   "description": "Strongly typed method factories",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "keywords": [],
   "author": {
     "name": "Jason Lenoble",
@@ -43,7 +43,7 @@
     "gulp-sourcemaps": "^2.6.3",
     "gulp-wrap": "*",
     "markdown-include": "*",
-    "marked": "^0.3.9",
+    "marked": "^0.3.12",
     "muter": "*",
     "plumb-gulp": "*"
   },
