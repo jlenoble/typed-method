@@ -2,8 +2,8 @@
 import method from '../../src/typed-method';
 import {expect} from 'chai';
 
-describe('Usage example', function () {
-  it(``, function () {
+describe('Testing README.md examples', function () {
+  it(`Usage example`, function () {
     const equal = method('equal', {negate: 'unequal', commutative: true});
     const greater = method('greater', {
       reciprocal: 'lower',
