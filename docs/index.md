@@ -22,7 +22,13 @@ Once you have created a custom function, you can use it to extend your types lik
 * `negate`: String. Gives a name to the negated method (like in `greater/lowerOrEqual` or `includes/isStrictlyIncluded`).
 * `strict`: String. Must be used in conjunction with `condition` option. Helps define a stricter version of the method (like in `greaterOrEqual/greater` or `includes/includesStrictly`).
 * `loose`: String. Must be used in conjunction with `condition` option. Helps define a looser version of the method (like in `greater/greaterOrEqual` or `includesStrictly/includes`).
-* `condition`: String. Used in combination with `strict` or `loose` options. Specifies the marginal method with which the method can be rendered stricter or looser.
+* `condition`: String. Used in combination with `strict` or `loose` options. Specifies the marginal method with which the method can be rendered stricter or looser
+
+## Special implementations !heading
+
+When dealing with methods returning booleans, sometimes their truth is known in advance, making any computations useless/wasteful. Two special implementations are provided so as to specify certain results, namely `succeed` and `fail`.
+
+Reciprocal, negated, conditional methods recognize them and are optimized accordingly.
 
 ## License !heading
 
