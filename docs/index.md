@@ -14,8 +14,15 @@ Once you have created a custom function, you can use it to extend your types lik
 
 ### Options !heading
 
-
-
+* `equal`: Boolean. Ensures equality between instances of different types is always false.
+* `unequal`: Boolean. Ensures inequality between instances of different types is always true.
+* `symmetric`: Boolean. When an implementation is defined for a pair of different types, automatically defines it for the permuted pair. Not to be confused with the more optimized `commutative` option, which doesn't add more overhead.
+* `commutative`: Boolean. Differs from the `symmetric` option in that it indicates that the implementation treats `this` (caller) and `arg` (callee) symmetrically, allowing to use it also for the permuted caller/callee pair, thus reducing overhead.
+* `reciprocal`: String. Gives a different name to the method when the pair caller/callee is permuted (like in `greater/lower` or `includes/isIncluded`).
+* `negate`: String. Gives a name to the negated method (like in `greater/lowerOrEqual` or `includes/isStrictlyIncluded`).
+* `strict`: String. Must be used in conjunction with `condition` option. Helps define a stricter version of the method (like in `greaterOrEqual/greater` or `includes/includesStrictly`).
+* `loose`: String. Must be used in conjunction with `condition` option. Helps define a looser version of the method (like in `greater/greaterOrEqual` or `includesStrictly/includes`).
+* `condition`: String. Used in combination with `strict` or `loose` options. Specifies the marginal method with which the method can be rendered stricter or looser.
 
 ## License !heading
 
