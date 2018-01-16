@@ -6,13 +6,14 @@ import sourcemaps from 'gulp-sourcemaps';
 const buildDir = 'build';
 const allSrcGlob = [
   'src/**/*.js',
-  'test/**/*.js'
+  'test/**/*.js',
+  'docs/examples/**/*.js',
 ];
 
 export const build = () => {
   return gulp.src(allSrcGlob, {
     base: process.cwd(),
-    since: gulp.lastRun(build)
+    since: gulp.lastRun(build),
   })
     .pipe(sourcemaps.init())
     .pipe(babel())
