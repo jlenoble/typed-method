@@ -54,7 +54,7 @@ export default function method (name, {
       if (negate) {
         new Negate(negate, name, callerType, calleeTypes[0]);
 
-        if ((equal || unequal || commutative) &&
+        if ((equal || unequal || commutative || symmetric) &&
           callerType !== calleeTypes[0]) {
           new Negate(negate, name, calleeTypes[0], callerType);
         }
