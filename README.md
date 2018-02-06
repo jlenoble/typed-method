@@ -27,7 +27,7 @@ import method from 'typed-method';
 const equal = method('equal', {negate: 'unequal', commutative: true});
 const greater = method('greater', {
   reciprocal: 'lower',
-  negate: 'lowerOrEqual',
+  looseReciprocal: 'lowerOrEqual',
   loose: 'greaterOrEqual',
   condition: 'equal',
 });
@@ -78,6 +78,8 @@ one.greaterOrEqual(one); // true;
 * `strict`: String. Must be used in conjunction with `condition` option. Helps define a stricter version of the method (like in `greaterOrEqual/greater` or `includes/includesStrictly`).
 * `loose`: String. Must be used in conjunction with `condition` option. Helps define a looser version of the method (like in `greater/greaterOrEqual` or `includesStrictly/includes`).
 * `condition`: String. Used in combination with `strict` or `loose` options. Specifies the marginal method with which the method can be rendered stricter or looser
+* `strictReciprocal`: String. Must be used in conjunction with `strict` option. Helps define a stricter version of the reciprocal method (like in `greaterOrEqual/lower` or `includes/isIncludedStrictly`).
+* `looseReciprocal`: String. Must be used in conjunction with `loose` option. Helps define a stricter version of the reciprocal method (like in `greater/lowerOrEqual` or `includesStrictly/isIncluded`).
 
 ## Special implementations
 

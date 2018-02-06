@@ -7,7 +7,7 @@ describe('Testing README.md examples', function () {
     const equal = method('equal', {negate: 'unequal', commutative: true});
     const greater = method('greater', {
       reciprocal: 'lower',
-      negate: 'lowerOrEqual',
+      looseReciprocal: 'lowerOrEqual',
       loose: 'greaterOrEqual',
       condition: 'equal',
     });
