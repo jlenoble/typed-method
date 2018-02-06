@@ -13,7 +13,7 @@ import {
 
 export default function method (name, {
   equal, unequal, symmetric, commutative, reciprocal, negate, strict, loose,
-  condition,
+  condition, strictReciprocal, looseReciprocal,
 } = {}) {
   return function (implementation, callerType, ...calleeTypes) {
     if (equal) {
@@ -62,10 +62,18 @@ export default function method (name, {
 
       if (strict && condition) {
         new Stricter(strict, name, condition, callerType, calleeTypes[0]);
+
+        if (strictReciprocal) {
+          new Reciprocal(strictReciprocal, strict, callerType, calleeTypes[0]);
+        }
       }
 
       if (loose && condition) {
         new Looser(loose, name, condition, callerType, calleeTypes[0]);
+
+        if (looseReciprocal) {
+          new Reciprocal(looseReciprocal, loose, callerType, calleeTypes[0]);
+        }
       }
     } else {
       if (negate) {
@@ -74,10 +82,18 @@ export default function method (name, {
 
       if (strict && condition) {
         new Stricter(strict, name, condition, callerType, callerType);
+
+        if (strictReciprocal) {
+          new Reciprocal(strictReciprocal, strict, callerType, callerType);
+        }
       }
 
       if (loose && condition) {
         new Looser(loose, name, condition, callerType, callerType);
+
+        if (looseReciprocal) {
+          new Reciprocal(looseReciprocal, loose, callerType, callerType);
+        }
       }
     }
   };

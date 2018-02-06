@@ -394,10 +394,11 @@ describe('Testing function method', function () {
     expect(() => new this.Arr(3).greaterOrEqual(new this.Num(3))).to.throw();
   });
 
-  it('Option reciprocal, negate and strict/condition', function () {
+  it('Option reciprocal, strict/condition and strictReciprocal', function () {
     const unequal = method('unequal', {commutative: true});
     const greaterOrEqual = method('greaterOrEqual', {strict: 'greater',
-      condition: 'unequal', reciprocal: 'lowerOrEqual', negate: 'lower'});
+      condition: 'unequal', reciprocal: 'lowerOrEqual',
+      strictReciprocal: 'lower'});
 
     unequal(function (obj) {
       return this.n !== obj.n;
