@@ -36,7 +36,7 @@ export default function method (name, {
       new Reciprocal(reciprocal, name, callerType, calleeTypes[0]);
     }
 
-    if (calleeTypes.length) {
+    if (calleeTypes.length > 1) {
       if (negate) {
         new Negate(negate, name, callerType, ...calleeTypes);
       }
@@ -49,6 +49,23 @@ export default function method (name, {
       if (loose && condition) {
         new Looser(loose, name, condition, callerType,
           ...calleeTypes);
+      }
+    } else if (calleeTypes.length === 1) {
+      if (negate) {
+        new Negate(negate, name, callerType, calleeTypes[0]);
+
+        if ((equal || unequal || commutative) &&
+          callerType !== calleeTypes[0]) {
+          new Negate(negate, name, calleeTypes[0], callerType);
+        }
+      }
+
+      if (strict && condition) {
+        new Stricter(strict, name, condition, callerType, calleeTypes[0]);
+      }
+
+      if (loose && condition) {
+        new Looser(loose, name, condition, callerType, calleeTypes[0]);
       }
     } else {
       if (negate) {

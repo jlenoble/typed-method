@@ -472,4 +472,49 @@ describe('Testing function method', function () {
     expect(new this.Num(3).lower(new this.Arr(3))).to.be.false;
     expect(new this.Arr(3).lower(new this.Num(3))).to.be.false;
   });
+
+  it('Option equal and negate', function () {
+    const equal = method('equal', {
+      equal: true,
+      negate: 'unequal',
+    });
+
+    equal(function (obj) {
+      return this.n === obj.n;
+    }, this.Num, this.Num);
+
+    equal(function (obj) {
+      return this.n.every((a, i) => a === obj.n[i]);
+    }, this.Arr);
+
+    expect(new this.Num(3).equal(new this.Num(6))).to.be.false;
+    expect(new this.Num(3).equal(new this.Num(3))).to.be.true;
+    expect(new this.Num(3).unequal(new this.Num(6))).to.be.true;
+    expect(new this.Num(3).unequal(new this.Num(3))).to.be.false;
+
+    expect(new this.Arr(3).equal(new this.Arr(6))).to.be.false;
+    expect(new this.Arr(3).equal(new this.Arr(3))).to.be.true;
+    expect(new this.Arr(3).unequal(new this.Arr(6))).to.be.true;
+    expect(new this.Arr(3).unequal(new this.Arr(3))).to.be.false;
+
+    expect(() => new this.Num(3).equal(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).equal(new this.Num(3))).to.throw();
+    expect(() => new this.Num(3).unequal(new this.Arr(3))).to.throw();
+    expect(() => new this.Arr(3).unequal(new this.Num(3))).to.throw();
+
+    equal(function (obj) {
+      return (this.n[0] || this.n) === (obj.n[0] || obj.n);
+    }, this.Num, this.Arr);
+
+    expect(new this.Num(3).equal(new this.Arr(3))).to.be.false;
+    expect(() => new this.Arr(3).equal(new this.Num(3))).not.to.throw();
+    expect(new this.Arr(3).equal(new this.Num(3))).to.be.false;
+    expect(new this.Num(3).unequal(new this.Arr(3))).to.be.true;
+    expect(() => new this.Arr(3).unequal(new this.Num(3))).not.to.throw();
+    expect(new this.Arr(3).unequal(new this.Num(3))).to.be.true;
+
+    expect(() => equal(function (obj) {
+      return (this.n[0] || this.n) === (obj.n[0] || obj.n);
+    }, this.Arr, this.Num)).to.throw();
+  });
 });
